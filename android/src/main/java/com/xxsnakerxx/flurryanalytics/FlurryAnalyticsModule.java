@@ -24,6 +24,8 @@ public class FlurryAnalyticsModule extends ReactContextBaseJavaModule {
 
   private Builder mFlurryAgentBuilder = null;
 
+  private ReactApplicationContext mContext = null;
+
   @Override
   public String getName() {
     return REACT_CLASS;
@@ -33,6 +35,7 @@ public class FlurryAnalyticsModule extends ReactContextBaseJavaModule {
     super(reactContext);
 
     mFlurryAgentBuilder = new FlurryAgent.Builder();
+    mContext = reactContext;
   }
 
   @ReactMethod
@@ -42,7 +45,7 @@ public class FlurryAnalyticsModule extends ReactContextBaseJavaModule {
               @Override
               public void onSessionStarted() {}
             })
-            .build(getCurrentActivity(), apiKey);
+            .build(mContext, apiKey);
   }
 
   @ReactMethod
